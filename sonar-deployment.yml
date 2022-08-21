@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: sonarqube
-          image: sonarqube:7.1
+          image: sonarqube:lts-community
           resources:
             requests:
               cpu: 500m
@@ -30,21 +30,26 @@ spec:
           - mountPath: "/opt/sonarqube/extensions/"
             name: sonar-extensions
           env:
-          - name: "SONARQUBE_JDBC_USERNAME"
+          - name: "SONAR_JDBC_USERNAME"
             valueFrom:
                secretKeyRef:
                  name: postgres-secrets
-                 key: username
+                 key: POSTGRES_USER
           - name: "SONARQUBE_JDBC_URL"
             valueFrom:
               configMapKeyRef:
                 name: sonar-config
                 key: url
-          - name: "SONARQUBE_JDBC_PASSWORD"
+          - name: "SONAR_JDBC_PASSWORD"
             valueFrom:
                secretKeyRef:
                  name: postgres-secrets
-                 key: password
+                 key: POSTGRES_PASSWORD
+          - name: "SONAR_SEARCH_JAVAADDITIONALOPTS"
+            valueFrom:
+              configMapKeyRef:
+                name: sonar-config
+                key: SONAR_SEARCH_JAVAADDITIONALOPTS
           ports:
           - containerPort: 9000
             protocol: TCP

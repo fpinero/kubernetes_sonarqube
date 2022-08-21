@@ -6,3 +6,5 @@ metadata:
     app: postgres
 data:
   url: jdbc:postgresql://postgres:5432/postgres
+  SONAR_SEARCH_JAVAADDITIONALOPTS: -Dnode.store.allow_mmap=false
+

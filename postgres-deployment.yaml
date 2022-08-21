@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: postgres
-          image: postgres:10.4
+          image: postgres:12
           imagePullPolicy: "IfNotPresent"
           ports:
             - containerPort: 5432
@@ -23,12 +23,12 @@ spec:
              valueFrom:
                secretKeyRef:
                  name: postgres-secrets
-                 key: username
+                 key: POSTGRES_USER
            - name: POSTGRES_PASSWORD
              valueFrom:
                secretKeyRef:
                  name: postgres-secrets
-                 key: password
+                 key: POSTGRES_PASSWORD
           volumeMounts:
             - mountPath: /var/lib/postgresql/data
               name: postgredb
